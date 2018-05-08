@@ -30,7 +30,7 @@ class Aggregate extends Component {
   render() {
     return (
       <div style={{ width: '40%', display: 'inline-block' }}>
-        <h2>{this.props.playlists && 
+        <h2>{this.props.playlists &&
           this.props.playlists.length} Text </h2>
       </div>
     );
@@ -67,26 +67,30 @@ class App extends Component {
   }
   componentDidMount() {
     setTimeout(() => {
-    this.setState({ serverData: mockServerData });
-  }, 2000);
-}
+      this.setState({ serverData: mockServerData });
+    }, 2000);
+  }
   render() {
     let green = '#ffff';
     let headerStyle = { color: green, 'font-size': '50px' }
     return (
       <div className="App">
-      {this.state.serverData.user && <h1>
-        {this.state.serverData.user.name}'s PlayList
-        </h1>}
-        <h1>Title</h1>
-        <Aggregate playlists={this.state.serverData.user &&
-          this.state.serverData.user.playlists}/>
-        <Aggregate />
-        <Search />
-        <PlayList />
-        <PlayList />
-        <PlayList />
-
+        {this.state.serverData.user ?
+          <div>
+            <h1>
+              {this.state.serverData.user.name}'s PlayList
+          </h1>
+            <h1>Title</h1>
+            <Aggregate playlists={this.state.serverData.user &&
+              this.state.serverData.user.playlists} />
+            <Aggregate />
+            <Search />
+            <PlayList />
+            <PlayList />
+            <PlayList />
+            <PlayList />
+          </div> : <h1>Loading...</h1>
+        }
       </div>
     );
   }
