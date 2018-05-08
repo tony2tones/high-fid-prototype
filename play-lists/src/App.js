@@ -8,35 +8,55 @@ let mockServerData = {
     playlists: [
       {
         name: 'My Favourites',
-        songs: ['Beat it', 'Take on me', 'Im Cursed'],
+        songs: [{ name: 'Beat it', duration: 1233 },
+        { name: 'Take on me', duration: 21000 },
+        { name: 'Im Cursed', duration: 23110 }],
       },
       {
         name: 'Old Rock',
-        songs: ['Working Man', 'Surgar Man', 'Superman cant walk'],
+        songs: [{ name: 'Working Man', duration: 34000 },
+        { name: 'Surgar Man', duration: 32202 },
+        { name: 'Superman cant walk', duration: 23000 }],
       },
       {
         name: 'Study',
-        songs: ['Narc', 'Ace of Spades', 'Swamp Thing'],
+        songs: [{ name: 'Narc', duration: 54000 },
+        { name: 'Ace of Spades', duration: 45000 },
+        { name: 'Swamp Thing', duration: 34404 }],
       },
       {
         name: 'Oldies',
-        songs: ['Misses Robinson', 'Take on me', 'Why dont you do right'],
+        songs: [{ name: 'Misses Robinson', duration: 42000 },
+        { name: 'Take on me', duration: 24000 },
+        { name: 'Why dont you do right', duration: 43300 }],
       },
     ]
   }
 }
 
-class Aggregate extends Component {
+class PlaylistCounter extends Component {
   render() {
     return (
       <div style={{ width: '40%', display: 'inline-block' }}>
-        <h2>{this.props.playlists &&
-          this.props.playlists.length} Text </h2>
+        <h2>{this.props.playlists.length} Text </h2>
       </div>
     );
   }
 }
 
+class PlayListHours extends Component {
+  render() {
+    let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
+      return songs.concat(eachPlaylist.songs)
+    }, [])
+    // let totalDuration = {}
+    return (
+      <div style={{ width: '40%', display: 'inline-block' }}>
+        <h2>{allSongs.length} hours</h2>
+      </div>
+    );
+  }
+}
 class Search extends Component {
   render() {
     return (
@@ -81,9 +101,9 @@ class App extends Component {
               {this.state.serverData.user.name}'s PlayList
           </h1>
             <h1>Title</h1>
-            <Aggregate playlists={this.state.serverData.user &&
+            <PlaylistCounter playlists={this.state.serverData.user &&
               this.state.serverData.user.playlists} />
-            <Aggregate />
+            <PlayListHours />
             <Search />
             <PlayList />
             <PlayList />
