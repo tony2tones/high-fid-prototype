@@ -86,7 +86,7 @@ class App extends Component {
     super()
     this.state = { serverData: {} }
   }
-  componentDidMount() {
+  componentWillMount() {
     setTimeout(() => {
       this.setState({ serverData: mockServerData });
     }, 2000);
