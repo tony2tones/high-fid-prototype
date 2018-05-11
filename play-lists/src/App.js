@@ -44,19 +44,19 @@ class PlaylistCounter extends Component {
   }
 }
 
-// class PlayListHours extends Component {
-//   render() {
-//     let allSongs = this.props.playlists.map((songs, eachPlaylist) => {
-//       return songs.concat(eachPlaylist.songs)
-//     }, [])
-//     // let totalDuration = {}
-//     return (
-//       <div style={{ width: '40%', display: 'inline-block' }}>
-//         <h2>{allSongs.length} hours</h2>
-//       </div>
-//     );
-//   }
-// }
+class PlayListHours extends Component {
+  render() {
+    let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
+      return songs.concat(eachPlaylist.songs)
+    }, [])
+    // let totalDuration = {}
+    return (
+      <div style={{ width: '40%', display: 'inline-block' }}>
+        <h2>{allSongs.length} hours</h2>
+      </div>
+    );
+  }
+}
 
 class Search extends Component {
   render() {
@@ -104,7 +104,7 @@ class App extends Component {
             <h1>Title</h1>
             <PlaylistCounter playlists={this.state.serverData.user &&
               this.state.serverData.user.playlists} />
-            {/* <PlayListHours /> */}
+            <PlayListHours  playlists={this.state.serverData.user.playlists} />
             <Search />
             <PlayList />
             <PlayList />
