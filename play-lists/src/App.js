@@ -51,10 +51,10 @@ class PlayListHours extends Component {
     }, [])
     let totalDuration = allSongs.reduce((sum, eachSong) => {
       return sum + eachSong.duration
-    },0)
+    }, 0)
     return (
       <div style={{ width: '40%', display: 'inline-block' }}>
-        <h2>{Math.floor(totalDuration/60)} hours</h2>
+        <h2>{Math.floor(totalDuration / 60)} hours</h2>
       </div>
     );
   }
@@ -74,10 +74,14 @@ class Search extends Component {
 class PlayList extends Component {
   render() {
     return (
-      <div style={{ width: '25%' }}>
+      <div style={{ width: '25%', display: 'inline-block' }}>
         <img />
-        <h3>Playlist Name</h3>
-        <ul><li>Song 1</li><li>Song 2</li><li>Song 3</li></ul>
+        <h3>{this.props.playlist.name}</h3>
+        <ul >
+          {this.props.playlist.songs.map(song =>
+            <li >{song.name}</li>
+          )}
+        </ul>
       </div>
     );
   }
@@ -106,12 +110,11 @@ class App extends Component {
             <h1>Title</h1>
             <PlaylistCounter playlists={this.state.serverData.user &&
               this.state.serverData.user.playlists} />
-            <PlayListHours  playlists={this.state.serverData.user.playlists} />
+            <PlayListHours playlists={this.state.serverData.user.playlists} />
             <Search />
-            <PlayList />
-            <PlayList />
-            <PlayList />
-            <PlayList />
+            {this.state.serverData.user.playlists.map(playlist =>
+              <PlayList playlist={playlist} />
+            )}
           </div> : <h1>Loading...</h1>
         }
       </div>
