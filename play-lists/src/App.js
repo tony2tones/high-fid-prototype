@@ -65,7 +65,7 @@ class Search extends Component {
     return (
       <div>
         <img />
-        <input type='text' />
+        <input type='text' onChange={event => this.props.onTextChange(event.target.value)}/>
       </div>
     )
   }
@@ -90,7 +90,10 @@ class PlayList extends Component {
 class App extends Component {
   constructor() {
     super()
-    this.state = { serverData: {} }
+    this.state = {
+      serverData: {},
+      filterString: ''
+    }
   }
   componentWillMount() {
     setTimeout(() => {
@@ -111,8 +114,11 @@ class App extends Component {
             <PlaylistCounter playlists={this.state.serverData.user &&
               this.state.serverData.user.playlists} />
             <PlayListHours playlists={this.state.serverData.user.playlists} />
-            <Search />
-            {this.state.serverData.user.playlists.map(playlist =>
+            <Search onTextChange={text => this.setState({ filterString: text })} />
+            {this.state.serverData.user.playlists.filter(playlist =>
+              playlist.name.toLowerCase().includes(
+                this.state.filterString.toLowerCase())
+            ).map(playlist =>
               <PlayList playlist={playlist} />
             )}
           </div> : <h1>Loading...</h1>
