@@ -120,7 +120,7 @@ class App extends Component {
                 this.state.filterString.toLowerCase())
             ).map(playlist =>
               <PlayList playlist={playlist} />
-            )}
+            )} <h3> No results to display </h3>
           </div> : <h1>Loading...</h1>
         }
       </div>
